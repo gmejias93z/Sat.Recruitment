@@ -1,14 +1,16 @@
-﻿using System.Data;
-using Sat.Recruitment.Api.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using Sat.Recruitment.Api.Constants;
+using Sat.Recruitment.Api.Data;
+using System.Data;
 using System.Globalization;
-using FluentValidation.Validators;
-using System.Net.Mail;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Sat.Recruitment.Api.Validations
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserDto>
     {
+        private readonly Regex PHONE_REGEX = new Regex("^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$");
         public UserValidator()
         {
 
@@ -18,9 +20,22 @@ namespace Sat.Recruitment.Api.Validations
             RuleFor(user => user.Email).EmailAddress();
             RuleFor(user => user.Address).NotNull();
             RuleFor(user => user.Phone).NotNull();
+            RuleFor(user => user.Phone).Matches(PHONE_REGEX);
             RuleFor(user => user.UserType).NotNull();
-            RuleFor(user => user.Money).NotNull();
-            RuleFor(user => user.Money).GreaterThanOrEqualTo(0);
+
+            RuleFor(user => user.UserType).Must((userType) => typeof(UserType).GetFields()
+                .Select(x => x.GetRawConstantValue())
+                .Contains(userType))
+                .WithMessage("Invalid UserType.");
+
+            RuleFor(user => user.Money).NotNull()
+                .Custom((x, context) =>
+                {
+                    if ((!(decimal.TryParse(x, out decimal value)) || value < 0))
+                    {
+                        context.AddFailure($"Value for '{context.PropertyName}' is not a valid amount or is less than 0");
+                    }
+                });
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Sat.Recruitment.Api.Controllers;
+﻿using Sat.Recruitment.Api.Constants;
 using Sat.Recruitment.Api.Database;
 using Sat.Recruitment.Api.Models;
 using Sat.Recruitment.Api.Repositories;
+using System;
+using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Api.Services
 {
@@ -53,7 +51,7 @@ namespace Sat.Recruitment.Api.Services
 
         private decimal CalculateBonus(decimal money, string userType)
         {
-            if (userType == "Normal")
+            if (userType == UserType.Normal)
             {
                 if (money > 100)
                 {
@@ -68,7 +66,7 @@ namespace Sat.Recruitment.Api.Services
                     money += gif;
                 }
             }
-            else if (userType == "SuperUser")
+            else if (userType == UserType.SuperUser)
             {
                 if (money > 100)
                 {
@@ -77,7 +75,7 @@ namespace Sat.Recruitment.Api.Services
                     money += gif;
                 }
             }
-            else if (userType == "Premium")
+            else if (userType == UserType.Premium)
             {
                 if (money > 100)
                 {

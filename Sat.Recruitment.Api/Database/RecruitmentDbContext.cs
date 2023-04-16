@@ -12,10 +12,8 @@ namespace Sat.Recruitment.Api.Database
 
         public RecruitmentDbContext()
         {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            // In Windows OS, SQLite DB file will be created on C:\Users\username\AppData\Local
-            DbPath = System.IO.Path.Join(path, "Recruitment.db");
+            var path = Environment.CurrentDirectory;
+            DbPath = System.IO.Path.Join(path, "/Database/Recruitment.db");
             Database.EnsureCreated();
         }
 

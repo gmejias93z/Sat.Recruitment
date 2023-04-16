@@ -6,6 +6,8 @@ using Sat.Recruitment.Api.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Sat.Recruitment.Api.Data;
+using Sat.Recruitment.Api.Mapping;
 
 namespace Sat.Recruitment.Api.Controllers
 {
@@ -16,9 +18,9 @@ namespace Sat.Recruitment.Api.Controllers
     {
 
         private readonly List<User> _users = new List<User>();
-        private readonly IValidator<User> _userValidator;
+        private readonly IValidator<UserDto> _userValidator;
         private readonly IUserService _userService;
-        public UsersController(IValidator<User> userValidator, IUserService userService)
+        public UsersController(IValidator<UserDto> userValidator, IUserService userService)
         {
             _userValidator = userValidator;
             _userService = userService;
@@ -28,17 +30,18 @@ namespace Sat.Recruitment.Api.Controllers
         [Route("/create-user")]
         public async Task<Result> CreateUser(string name, string email, string address, string phone, string userType, string money)
         {
-            var newUser = new User
+
+            var userDto = new UserDto()
             {
                 Name = name,
                 Email = email,
                 Address = address,
                 Phone = phone,
                 UserType = userType,
-                Money = decimal.Parse(money)
+                Money = money,
             };
 
-            ValidationResult validationResult = await _userValidator.ValidateAsync(newUser);
+            ValidationResult validationResult = await _userValidator.ValidateAsync(userDto);
             
             if (!validationResult.IsValid)
             {
@@ -50,6 +53,7 @@ namespace Sat.Recruitment.Api.Controllers
 
             }
 
+            var newUser = userDto.ToUser();
             var result = await _userService.CreateUser(newUser);
             return result;
         }
