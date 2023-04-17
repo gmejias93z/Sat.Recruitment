@@ -15,3 +15,8 @@ This is a solution for Code Challenge found in https://github.com/Paramo-Tech/Sa
 - Use of a Global Exception Handling middleware.
 - Use of Entity Framework plus Repository Pattern.
 - Unit test using Moq and Shouldly libraries.
+
+## Aditional Notes
+- Would have like to change the way parameters are passed to the controller, like an object FromBody instead of multiple parameters. But this breaks the current use of the API.
+- Could have added Unit of Work implementation in the repository patter to improve it even further.
+- I considered the use of MediatR for CQRS (Command Query Responsibility Segregation). But I didn't have it clear. Maybe with a further refactor of the controller requests, as mentioned earlier.
