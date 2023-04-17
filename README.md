@@ -5,6 +5,8 @@ This is a solution for Code Challenge found in https://github.com/Paramo-Tech/Sa
 ## Change Notes
 
 - Removed Startup.cs and use Net6.0 Top Level Statements in Program.cs.
+- Use of Serilog as a Logger provider.
+- Added some console logging.
 - Persistance of data changed from using TXT to use SQLite (DB file in project folder).
 - Changed general project structure, folders and file location.
 - Use of FluentValidation library for Data model validations.
