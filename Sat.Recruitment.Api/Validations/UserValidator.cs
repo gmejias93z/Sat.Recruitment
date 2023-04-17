@@ -32,7 +32,7 @@ namespace Sat.Recruitment.Api.Validations
                     .Contains(userType))
                 .WithMessage((context) => $"Invalid {nameof(context.UserType)}."));
 
-            // Custom rule to check that Money string value is convertible to Decimal
+            // Custom rule to check that Money string value is convertible to Decimal and check that is equal or greater than 0.
             RuleFor(user => user.Money).NotEmpty()
                 .DependentRules(() => RuleFor(user => user.Money).Custom((x, context) =>
             {
