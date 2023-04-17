@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore.TestUtilities.Xunit;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Utilities;
 using Moq;
 using Sat.Recruitment.Api.Constants;
 using Sat.Recruitment.Api.Controllers;
@@ -13,6 +8,7 @@ using Sat.Recruitment.Api.Models;
 using Sat.Recruitment.Api.Services;
 using Sat.Recruitment.Api.Validations;
 using Shouldly;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Sat.Recruitment.Test.Controllers

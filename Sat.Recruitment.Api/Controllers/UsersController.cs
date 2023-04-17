@@ -1,14 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Sat.Recruitment.Api.Data;
 using Sat.Recruitment.Api.Models;
 using Sat.Recruitment.Api.Services;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mapster;
-using Sat.Recruitment.Api.Data;
-using Sat.Recruitment.Api.Mapping;
 
 namespace Sat.Recruitment.Api.Controllers
 {

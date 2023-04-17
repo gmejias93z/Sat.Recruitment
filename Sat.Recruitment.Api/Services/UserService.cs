@@ -1,5 +1,4 @@
 ﻿using Sat.Recruitment.Api.Constants;
-using Sat.Recruitment.Api.Database;
 using Sat.Recruitment.Api.Models;
 using Sat.Recruitment.Api.Repositories;
 using System;

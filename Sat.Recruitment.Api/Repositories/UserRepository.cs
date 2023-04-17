@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Sat.Recruitment.Api.Database;
 using Sat.Recruitment.Api.Models;
+using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Api.Repositories
 {

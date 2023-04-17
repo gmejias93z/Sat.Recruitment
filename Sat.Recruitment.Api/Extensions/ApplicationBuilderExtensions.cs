@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Sat.Recruitment.Api.Configurations;
-using System;
-using Mapster;
-using Sat.Recruitment.Api.Data;
-using Sat.Recruitment.Api.Models;
 
 namespace Sat.Recruitment.Api.Extensions
 {
