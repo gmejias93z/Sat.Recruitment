@@ -1,6 +1,8 @@
+using System;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -37,10 +39,12 @@ builder.Services.RegisterMapsterConfiguration();
 var app = builder.Build();
 
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    using var scope = app.Services.CreateScope();
+    using var dbcontext = scope.ServiceProvider.GetRequiredService<RecruitmentDbContext>();
+    dbcontext.Database.EnsureCreated();
 }
 
 app.UseSwagger();

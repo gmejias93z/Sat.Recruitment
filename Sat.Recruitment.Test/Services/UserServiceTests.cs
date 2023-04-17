@@ -4,6 +4,7 @@ using Sat.Recruitment.Api.Constants;
 using Sat.Recruitment.Api.Models;
 using Sat.Recruitment.Api.Repositories;
 using Sat.Recruitment.Api.Services;
+using Shouldly;
 using Xunit;
 
 namespace Sat.Recruitment.Test.Services
@@ -17,8 +18,27 @@ namespace Sat.Recruitment.Test.Services
             _userRepositoryMock.Setup(x => x.AddUser(It.IsAny<User>())).ReturnsAsync(true);
         }
 
-        //valid user success
-        //duplicated user scenario
+        [Fact]
+        public async Task CreateUser_ValidUser_Success()
+        {
+            var sut = new UserService(_userRepositoryMock.Object);
+            var result = await sut.CreateUser(NormalUserAbove100Money());
+            result.IsSuccess.ShouldBe(true);
+            result.Errors.ShouldBe("User Created");
+
+        }
+
+        [Fact]
+        public async Task CreateUser_DuplicatedUser_ErrorResult()
+        {
+            _userRepositoryMock.Setup(x => x.AddUser(It.IsAny<User>())).ReturnsAsync(false);
+
+            var sut = new UserService(_userRepositoryMock.Object);
+            var result = await sut.CreateUser(NormalUserAbove100Money());
+            result.IsSuccess.ShouldBe(false);
+            result.Errors.ShouldBe("The user is duplicated");
+
+        }
 
         [Fact]
         public async Task CreateUser_NormalUser_BonusCheck()

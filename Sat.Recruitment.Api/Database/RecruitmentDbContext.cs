@@ -8,14 +8,7 @@ namespace Sat.Recruitment.Api.Database
     {
         public DbSet<User> Users { get; set; }
 
-        public string DbPath { get; }
-
-        public RecruitmentDbContext()
-        {
-            var path = Environment.CurrentDirectory;
-            DbPath = System.IO.Path.Join(path, "/Database/Recruitment.db");
-            Database.EnsureCreated();
-        }
+        public string DbPath { get; } = System.IO.Path.Join(Environment.CurrentDirectory, "/Database/Recruitment.db");
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={DbPath}");

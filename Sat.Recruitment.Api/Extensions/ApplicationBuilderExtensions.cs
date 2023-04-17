@@ -8,7 +8,7 @@ using Sat.Recruitment.Api.Models;
 
 namespace Sat.Recruitment.Api.Extensions
 {
-    public static class ServiceCollectionExtensions
+    public static class ApplicationBuilderExtensions
     {
         public static IApplicationBuilder AddGlobalErrorHandler(this IApplicationBuilder applicationBuilder)
             => applicationBuilder.UseMiddleware<GlobalErrorHandlingMiddleware>();
