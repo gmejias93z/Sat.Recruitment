@@ -15,15 +15,24 @@ namespace Sat.Recruitment.Api.Validations
         {
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en");
             RuleFor(user => user.Name).NotEmpty();
-            RuleFor(user => user.Email).NotEmpty().DependentRules(() => RuleFor(user => user.Email).EmailAddress());
+
+            RuleFor(user => user.Email).NotEmpty()
+                .DependentRules(() => RuleFor(user => user.Email).EmailAddress());
+
             RuleFor(user => user.Address).NotEmpty();
-            RuleFor(user => user.Phone).NotEmpty().DependentRules(() => RuleFor(user => user.Phone).Matches(PHONE_REGEX));
-            RuleFor(user => user.UserType).NotEmpty().DependentRules(() => RuleFor(user => user.UserType).Must((userType) => typeof(UserType).GetFields()
+
+            RuleFor(user => user.Phone).NotEmpty()
+                .DependentRules(() => RuleFor(user => user.Phone).Matches(PHONE_REGEX));
+
+            RuleFor(user => user.UserType).NotEmpty()
+                .DependentRules(() => RuleFor(user => user.UserType)
+                    .Must((userType) => typeof(UserType).GetFields()
                     .Select(x => x.GetRawConstantValue())
                     .Contains(userType))
                 .WithMessage((context) => $"Invalid {nameof(context.UserType)}."));
 
-            RuleFor(user => user.Money).NotEmpty().DependentRules(() => RuleFor(user => user.Money).Custom((x, context) =>
+            RuleFor(user => user.Money).NotEmpty()
+                .DependentRules(() => RuleFor(user => user.Money).Custom((x, context) =>
             {
                 if ((!(decimal.TryParse(x, out decimal value)) || value < 0))
                 {
