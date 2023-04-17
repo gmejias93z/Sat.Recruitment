@@ -6,6 +6,7 @@ using Sat.Recruitment.Api.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mapster;
 using Sat.Recruitment.Api.Data;
 using Sat.Recruitment.Api.Mapping;
 
@@ -17,9 +18,9 @@ namespace Sat.Recruitment.Api.Controllers
     public partial class UsersController : ControllerBase
     {
 
-        private readonly List<User> _users = new List<User>();
         private readonly IValidator<UserDto> _userValidator;
         private readonly IUserService _userService;
+
         public UsersController(IValidator<UserDto> userValidator, IUserService userService)
         {
             _userValidator = userValidator;
@@ -53,7 +54,7 @@ namespace Sat.Recruitment.Api.Controllers
 
             }
 
-            var newUser = userDto.ToUser();
+            var newUser = userDto.Adapt<User>();
             var result = await _userService.CreateUser(newUser);
             return result;
         }

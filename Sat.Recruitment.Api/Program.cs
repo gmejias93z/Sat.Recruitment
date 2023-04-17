@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Sat.Recruitment.Api.Data;
 using Sat.Recruitment.Api.Database;
 using Sat.Recruitment.Api.Extensions;
-using Sat.Recruitment.Api.Models;
+using Sat.Recruitment.Api.Mapping;
 using Sat.Recruitment.Api.Repositories;
 using Sat.Recruitment.Api.Services;
 using Sat.Recruitment.Api.Validations;
@@ -31,6 +31,8 @@ builder.Services.AddLogging(loggingBuilder =>
 });
 
 builder.Services.AddDbContext<RecruitmentDbContext>();
+
+builder.Services.RegisterMapsterConfiguration();
 
 var app = builder.Build();
 
