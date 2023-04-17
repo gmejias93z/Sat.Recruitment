@@ -24,6 +24,7 @@ namespace Sat.Recruitment.Api.Validations
             RuleFor(user => user.Phone).NotEmpty()
                 .DependentRules(() => RuleFor(user => user.Phone).Matches(PHONE_REGEX));
 
+            // Check that UserType value matches to one of the constants value in UserType class (using reflection).
             RuleFor(user => user.UserType).NotEmpty()
                 .DependentRules(() => RuleFor(user => user.UserType)
                     .Must((userType) => typeof(UserType).GetFields()
@@ -31,6 +32,7 @@ namespace Sat.Recruitment.Api.Validations
                     .Contains(userType))
                 .WithMessage((context) => $"Invalid {nameof(context.UserType)}."));
 
+            // Custom rule to check that Money string value is convertible to Decimal
             RuleFor(user => user.Money).NotEmpty()
                 .DependentRules(() => RuleFor(user => user.Money).Custom((x, context) =>
             {
